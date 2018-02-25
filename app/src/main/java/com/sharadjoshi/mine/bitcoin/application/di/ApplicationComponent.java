@@ -12,8 +12,8 @@ import dagger.Component;
 
 @Singleton
 @Component(modules = ActivityBuilderModule.class)
-public interface ApplicationComponent {
 
+public interface ApplicationComponent {
     @Component.Builder
     interface Builder {
         @BindsInstance

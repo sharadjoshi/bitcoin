@@ -10,12 +10,13 @@ import timber.log.Timber
 
 @Module
 class NetworkModule {
+
     @Provides
     fun provideRetrofit(httpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
                 .addConverterFactory(JacksonConverterFactory.create())
                 .client(httpClient)
-                .baseUrl("myurl")
+                .baseUrl("http://ec2-18-220-199-84.us-east-2.compute.amazonaws.com/")
                 .build()
     }
 
@@ -26,6 +27,7 @@ class NetworkModule {
                 .build()
     }
 
+    @Provides
     fun provideLogginInterceptor(): HttpLoggingInterceptor {
         return HttpLoggingInterceptor(HttpLoggingInterceptor.Logger { message -> Timber.i(message) })
     }

@@ -12,5 +12,5 @@ abstract class ActivityBuilderModule {
 
     @ActivityScope
     @ContributesAndroidInjector(modules = arrayOf(MineActivityModule::class))
-    internal abstract fun newMainActivityInjector(): MineActivity
+    internal abstract fun MineActivityInjector(): MineActivity
 }
