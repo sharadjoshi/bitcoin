@@ -26,21 +26,9 @@ class MineActivity : AppCompatActivity() {
 
         get_block.setOnClickListener({ blockHeaderViewModel.getBlock() })
 
-        blockHeaderViewModel.blockHeader.observe(this, Observer { header -> showHeader(header?: BlockHeader()) })
+        blockHeaderViewModel.blockHeader.observe(this, Observer { header -> block_details.setup(header ?: BlockHeader())})
         blockHeaderViewModel.nonce.observe(this, Observer { nonce -> progress.text = nonce.toString() })
 
         process_block.setOnClickListener({ blockHeaderViewModel.processBlock() })
-    }
-
-    private fun showHeader(blockHeader: BlockHeader) {
-        val sb = StringBuilder()
-        sb.append("New Block\n")
-                .append("Version       : ${blockHeader.version}\n")
-                .append("Previous Hash : ${blockHeader.prevBlockhash}\n")
-                .append("Merkel Root   : ${blockHeader.merkleRoot}\n")
-                .append("Timestamp     : ${blockHeader.timestamp}\n")
-                .append("Nonce         : ${blockHeader.nonce}")
-
-        block_details.text = sb.toString()
     }
 }

@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">Bitcoin</string>
+    <string name="process_block">Process Block</string>
+    <string name="submit_block">Submit Block</string>
+    <string name="get_new_block">Get New Block</string>
+    <string name="processing_with_nonce">Processing with nonce:</string>
+    <string name="version">Version</string>
+    <string name="timestamp">Timestamp</string>
+    <string name="previous_hash">Previous Hash</string>
+    <string name="merkel_root">Merkel Root</string>
+    <string name="difficulty">Difficulty</string>
+    <string name="nonce">Nonce</string>
+    <string name="current_block_header">Current Block Header</string>
 </resources>

@@ -6,21 +6,20 @@
     android:layout_height="match_parent"
     tools:context="com.sharadjoshi.mine.bitcoin.main.MineActivity">
 
-    <TextView
+    <com.sharadjoshi.mine.bitcoin.main.BlockHeaderView
         android:id="@+id/block_details"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:text="Block details"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/progress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:text="Nonce: 1"
+        android:layout_marginTop="20dp"
+        android:padding="15dp"
+        android:text="@string/processing_with_nonce"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/block_details" />
 
@@ -28,7 +27,7 @@
         android:id="@+id/get_block"
         android:layout_width="117dp"
         android:layout_height="wrap_content"
-        android:text="Get New Block"
+        android:text="@string/get_new_block"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/process_block"
         app:layout_constraintHorizontal_bias="0.5"
@@ -38,7 +37,7 @@
         android:id="@+id/process_block"
         android:layout_width="117dp"
         android:layout_height="wrap_content"
-        android:text="Process Block"
+        android:text="@string/process_block"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/submit_block"
         app:layout_constraintHorizontal_bias="0.5"
@@ -48,7 +47,7 @@
         android:id="@+id/submit_block"
         android:layout_width="118dp"
         android:layout_height="wrap_content"
-        android:text="Submit Block"
+        android:text="@string/submit_block"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
