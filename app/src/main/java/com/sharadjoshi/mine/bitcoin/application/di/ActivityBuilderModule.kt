@@ -1,7 +1,7 @@
-package com.sharadjoshi.mine.bitcoin.main.di
+package com.sharadjoshi.mine.bitcoin.application.di
 
-import com.sharadjoshi.mine.bitcoin.application.di.ActivityScope
 import com.sharadjoshi.mine.bitcoin.main.MineActivity
+import com.sharadjoshi.mine.bitcoin.main.di.MineActivityModule
 
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
