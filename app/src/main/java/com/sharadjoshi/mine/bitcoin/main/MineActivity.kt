@@ -24,11 +24,34 @@ class MineActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_main)
 
-        get_block.setOnClickListener({ blockHeaderViewModel.getBlock() })
+        getBlock.setOnClickListener {
+            blockHeaderViewModel.getBlock()
+            processBlock.isEnabled = true
+        }
 
         blockHeaderViewModel.blockHeader.observe(this, Observer { header -> block_details.setup(header ?: BlockHeader())})
-        blockHeaderViewModel.nonce.observe(this, Observer { nonce -> progress.text = nonce.toString() })
+        blockHeaderViewModel.nonce.observe(this, Observer {
+            nonce -> progress.text = resources.getString(R.string.processing_with_nonce, nonce) })
 
-        process_block.setOnClickListener({ blockHeaderViewModel.processBlock() })
+        processBlock.setOnClickListener {
+            // Toggle processing
+            if (blockHeaderViewModel.stop) {
+                // if stopped already, start processing
+                getBlock.isEnabled = false
+                submitBlock.isEnabled = true
+                processBlock.text = getString(R.string.stop_processing)
+                blockHeaderViewModel.processBlock()
+            } else {
+                // else stop processing
+                processBlock.text = getString(R.string.process_block)
+                getBlock.isEnabled = true
+                submitBlock.isEnabled = false
+                blockHeaderViewModel.processBlock()
+            }
+        }
+
+        submitBlock.setOnClickListener {
+            getBlock.isEnabled = true
+        }
     }
 }

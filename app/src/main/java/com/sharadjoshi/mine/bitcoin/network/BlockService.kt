@@ -1,6 +1,6 @@
 package com.sharadjoshi.mine.bitcoin.network
 
-import com.sharadjoshi.mine.bitcoin.blockprocessor.BlockProcessor
+import com.sharadjoshi.mine.bitcoin.blockprocessor.BlockHandler
 import com.sharadjoshi.mine.bitcoin.data.BlockHeader
 import com.sharadjoshi.mine.bitcoin.data.Job
 import retrofit2.Call
@@ -9,10 +9,10 @@ import retrofit2.Response
 import timber.log.Timber
 
 class BlockService(var blockServiceAPI: BlockServiceAPI) : Callback<Job> {
-    private lateinit var blockProcessor: BlockProcessor
+    private lateinit var blockHandler: BlockHandler
 
-    fun getJob(blockProcessor: BlockProcessor) {
-        this.blockProcessor = blockProcessor
+    fun getJob(blockHandler: BlockHandler) {
+        this.blockHandler = blockHandler
         val j = blockServiceAPI.getJob()
         j.enqueue(this)
     }
@@ -21,7 +21,7 @@ class BlockService(var blockServiceAPI: BlockServiceAPI) : Callback<Job> {
         val j: Job? = response?.body()
         Timber.v("Received ${j.toString()}")
 
-        blockProcessor.processBlock(j?.blockHeader ?: BlockHeader())
+        blockHandler.handleBlock(j?.blockHeader ?: BlockHeader())
     }
 
     override fun onFailure(call: Call<Job>?, t: Throwable?) {

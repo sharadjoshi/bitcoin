@@ -8,20 +8,24 @@ import java.security.MessageDigest
 import javax.inject.Inject
 
 class HashCashGenerator @Inject constructor(private val messageDigest: MessageDigest) {
+    fun currentHash(blockHeader: BlockHeader) : ByteArray {
+        return stringToHex(blockHeader.prevBlockhash)
+    }
+
     fun generateHash(blockHeader: BlockHeader) : ByteArray {
         val headerBigEndian : ByteBuffer = ByteBuffer.allocate(80)
 
-        // BitCoin hashcash is (hash of (hash of (block header in big endian format))
+        // BitCoin hashcash is (hash of (hash of (block header in device endian format))
         // The hash function is SHA256
-        headerBigEndian.order(ByteOrder.BIG_ENDIAN)
+        headerBigEndian.order(ByteOrder.LITTLE_ENDIAN)
 
         with(headerBigEndian) {
-            putInt(blockHeader.version)                      // 4 bytes
-            put(stringToHex(blockHeader.prevBlockhash))      // 32 bytes
-            put(stringToHex(blockHeader.merkleRoot))         // 32 bytes
-            putInt(blockHeader.timestamp.toInt())            // 4 bytes
-            putInt(blockHeader.difficultyTarget.toInt())     // 4 bytes
-            putInt(blockHeader.nonce.toInt())          // 4 bytes
+            putInt(blockHeader.version)                      // 4 bytes - version
+            put(stringToHex(blockHeader.prevBlockhash))      // 32 bytes - previous block hash
+            put(stringToHex(blockHeader.merkleRoot))         // 32 bytes - merkel root
+            putInt(System.currentTimeMillis().toInt())       // 4 bytes - start time of mining
+            putInt(blockHeader.nBits.toInt())                // 4 bytes - target bits
+            putInt(blockHeader.nonce.toInt())          // 4 bytes - linearly increasing nonce
         }
 
         val blockHash = messageDigest.digest(messageDigest.digest(headerBigEndian.array()))
@@ -29,8 +33,28 @@ class HashCashGenerator @Inject constructor(private val messageDigest: MessageDi
         return blockHash
     }
 
-    fun compareHash(newHash: String, blockHeader: BlockHeader) : Int {
-        return 0
+    fun isHashSmaller(newHash: ByteArray, oldHash: ByteArray) : Boolean {
+        for (i in 0..31) {
+            if (newHash[i] != oldHash[i]) {
+                Timber.v("not equal - new ${newHash[i]}, old ${oldHash[i]}, ${newHash[i] < oldHash[i]}")
+                return newHash[i] < oldHash[i]
+            }
+        }
+
+        return false
+    }
+
+    // Check if the hash is smaller than the target
+    fun isHashSmaller2(newHash: ByteArray, oldHash: ByteArray) : Boolean {
+        val newHahZeros = (0..31)
+                .takeWhile { newHash[it].toInt() == 0 }
+                .count()
+
+        val oldHahZeros = (0..31)
+                .takeWhile { oldHash[it].toInt() == 0 }
+                .count()
+
+        return newHahZeros > oldHahZeros
     }
 
     // Converts 64 byte string representation of the hash
