@@ -1,16 +1,22 @@
 <resources>
     <string name="app_name">Bitcoin</string>
-    <string name="process_block">Process Block</string>
-    <string name="submit_block">Submit Block</string>
-    <string name="get_new_block">Get New Block</string>
+    <string name="verify_block">Verify</string>
+    <string name="submit_block">Submit</string>
+    <string name="get_new_block">Get</string>
     <string name="processing_with_nonce">Processing with nonce : %1$d</string>
     <string name="version">Version</string>
     <string name="timestamp">Timestamp</string>
     <string name="previous_hash">Previous Hash</string>
     <string name="merkel_root">Merkel Root</string>
-    <string name="nbits">nBits</string>
+    <string name="nbits">Bits</string>
     <string name="nonce">Nonce</string>
-    <string name="current_block_header">Current Block Header</string>
-    <string name="stop_processing">Stop Processing</string>
+    <string name="current_block_header">Block Header</string>
+    <string name="stop_processing">Stop</string>
     <string name="final_hash">Final Hash - %1$s</string>
+    <string name="block_id">Block Id</string>
+    <string name="mined_by">Mined by</string>
+    <string name="hash">Hash</string>
+    <string name="modify_block">Modify</string>
+    <string name="verified">Verified!</string>
+    <string name="not_verified">Not Verified!</string>
 </resources>

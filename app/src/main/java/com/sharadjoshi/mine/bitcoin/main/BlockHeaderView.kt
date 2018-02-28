@@ -31,12 +31,15 @@ class BlockHeaderView : ConstraintLayout {
 
     fun setup(blockHeader: BlockHeader) {
         with (blockHeader) {
+            block_id_value.text = blockId.toString()
+            block_miner_value.text = miner
+            block_hash_value.text = blockHash
             block_version_value.text = version.toString()
             block_timestamp_value.text = timestamp.toString()
             block_prevhash_value.text = prevBlockhash
-            block_merkel_root_value.text = merkleRoot
-            block_difficulty_value.text = target
-            block_nonce_value.text = nonce.toString()
+            block_merkel_root_value.text = merkleroot
+            block_difficulty_value.text = target.toString()
+            block_nonce_value.text = nonce.toInt().toString()
         }
     }
 }

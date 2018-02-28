@@ -14,45 +14,61 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/progress"
+        android:id="@+id/verify_result_final"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:padding="15dp"
-        android:text="@string/processing_with_nonce"
+        android:layout_marginTop="10dp"
+        android:paddingStart="15dp"
+        android:textStyle="bold"
+        android:textSize="15sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/block_details" />
 
+    <TextView
+        android:id="@+id/result_hash"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:padding="15dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/verify_result_final" />
+
     <Button
         android:id="@+id/getBlock"
-        android:layout_width="117dp"
+        android:layout_width="86dp"
         android:layout_height="wrap_content"
         android:text="@string/get_new_block"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/processBlock"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/processBlock"
-        android:layout_width="117dp"
+        android:layout_width="86dp"
         android:layout_height="wrap_content"
-        android:text="@string/process_block"
         android:enabled="false"
+        android:text="@string/verify_block"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/submitBlock"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/getBlock" />
 
     <Button
-        android:id="@+id/submitBlock"
-        android:layout_width="118dp"
+        android:id="@+id/modifyBlock"
+        android:layout_width="86dp"
         android:layout_height="wrap_content"
-        android:text="@string/submit_block"
         android:enabled="false"
+        android:text="@string/modify_block"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/processBlock" />
+
+    <Button
+        android:id="@+id/submitBlock"
+        android:layout_width="86dp"
+        android:layout_height="wrap_content"
+        android:enabled="false"
+        android:text="@string/submit_block"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/processBlock" />
+        app:layout_constraintStart_toEndOf="@+id/modifyBlock" />
 
 </android.support.constraint.ConstraintLayout>

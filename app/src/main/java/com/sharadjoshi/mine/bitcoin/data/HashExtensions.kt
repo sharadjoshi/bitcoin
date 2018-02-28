@@ -1,5 +1,7 @@
 package com.sharadjoshi.mine.bitcoin.data
 
+import java.util.concurrent.ThreadLocalRandom
+
 // Returns a byte array representation of this string in little endian format
 // If the string is already in proper endianness, there is no way to know that here
 fun String.toHex() : ByteArray {
@@ -16,6 +18,16 @@ fun String.toHex() : ByteArray {
     return value.toLittleEndian()
 }
 
+fun String.toLittleEndian() : String {
+    // Reverse string two bytes at a time
+    val stringBuilder = StringBuilder()
+    for (i in 0 until this.length - 1 step  2) {
+        stringBuilder.insert(0, this[i]).insert(1, this[i+1])
+    }
+
+    return stringBuilder.toString()
+}
+
 fun ByteArray.toLittleEndian() : ByteArray {
     for (i in 0 until (this.size/2)) {
         var byte = this[this.size - 1 - i]
@@ -24,12 +36,6 @@ fun ByteArray.toLittleEndian() : ByteArray {
     }
 
     return this
-}
-
-// We need this method because the Kotlin Char.toInt() does a literal conversion
-// i.e. the value of char '0' will be 48 instead of 0
-private fun Char.charToInt() : Int {
-    return if (this.isDigit()) (this - '0') else (this - 'a') + 10
 }
 
 fun ByteArray.toHexString() : String {
@@ -53,3 +59,12 @@ fun ByteArray.isSmaller(target: ByteArray) : Boolean {
 
     return newHahZeros > oldHashZeros
 }
+
+// We need this method because the Kotlin Char.toInt() does a literal conversion
+// i.e. the value of char '0' will be 48 instead of 0
+private fun Char.charToInt() : Int {
+    return if (this.isDigit()) (this - '0') else (this - 'a') + 10
+}
+
+fun ClosedRange<Int>.random() =
+        ThreadLocalRandom.current().nextInt(endInclusive - start) +  start

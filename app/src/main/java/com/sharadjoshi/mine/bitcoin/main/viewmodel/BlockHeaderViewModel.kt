@@ -6,6 +6,7 @@ import android.arch.lifecycle.ViewModel
 import com.sharadjoshi.mine.bitcoin.blockprocessor.BlockHandler
 import com.sharadjoshi.mine.bitcoin.blockprocessor.HashCashGenerator
 import com.sharadjoshi.mine.bitcoin.data.BlockHeader
+import com.sharadjoshi.mine.bitcoin.data.random
 import com.sharadjoshi.mine.bitcoin.data.toHexString
 import com.sharadjoshi.mine.bitcoin.network.BlockService
 import io.reactivex.Single
@@ -21,7 +22,6 @@ class BlockHeaderViewModel @Inject constructor(
     private var blockHeader : MutableLiveData<BlockHeader> = MutableLiveData()
     private var resultHash : MutableLiveData<String> = MutableLiveData()
     private var nonce : MutableLiveData<Int> = MutableLiveData()
-    var stop : Boolean = false
 
     fun getBlock() {
         blockService.getJob(this)
@@ -40,36 +40,35 @@ class BlockHeaderViewModel @Inject constructor(
     }
 
     fun processBlock() {
-        stop = !stop
-
-        if (!stop) {
-            getHashGeneratorSingle(newBlockHeader)
-                    .subscribeOn(Schedulers.computation())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe { result -> resultHash.value = result }
-        }
+        getHashGeneratorSingle(newBlockHeader)
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe { result -> resultHash.value = result }
     }
 
     // Handles arrival of a new block
     override fun handleBlock(blockHeader: BlockHeader) {
         newBlockHeader = blockHeader
         this.blockHeader.value = newBlockHeader
-        this.nonce.value = newBlockHeader.nonce
+        this.nonce.value = newBlockHeader.nonce.toInt()
     }
 
     private fun getHashGeneratorSingle(blockHeader: BlockHeader): Single<String> {
         return Single.fromCallable {
-            var blockHeaderCopy = newBlockHeader
-            var blockMined = true
+            var blockMined = true // till real mining begins
             var newHash = ByteArray(32)
 
             do {
                 newHash = hashCashGenerator.generateHash(blockHeader)
-//                blockMined = newHash.isSmaller(target)
-//                blockHeaderCopy.nonce++
-            } while (!stop && !blockMined)
+            } while (!blockMined)
             newHash
         }.map { it.toHexString() }
+    }
 
+    // Scramble the nonce for fun!
+    fun updateNonce() {
+        newBlockHeader.nonce = ((200000000..500000000).random()).toLong()
+        blockHeader.value = newBlockHeader
+        nonce.value = newBlockHeader.nonce.toInt()
     }
 }

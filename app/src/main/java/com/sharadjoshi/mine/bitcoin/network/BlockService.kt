@@ -25,6 +25,6 @@ class BlockService(var blockServiceAPI: BlockServiceAPI) : Callback<Job> {
     }
 
     override fun onFailure(call: Call<Job>?, t: Throwable?) {
-        Timber.e("Failed to receive job")
+        Timber.e(t, "Failed to receive job")
     }
 }

@@ -16,15 +16,15 @@ class HashCashGenerator @Inject constructor(private val messageDigest: MessageDi
         headerLittleEndian.order(ByteOrder.LITTLE_ENDIAN)
 
         // BitCoin hashcash is (hash of (hash of (block header in little endian format))
-        // The hash function is SHA256. The generated has is also in little endian format.
+        // The hash function is SHA256. The generated hash is also in little endian format.
 
         with(headerLittleEndian) {
             putInt(blockHeader.version)                      // 4 bytes - version
             put(blockHeader.prevBlockhash.toHex())           // 32 bytes - previous block hash
-            put(blockHeader.merkleRoot.toHex())              // 32 bytes - merkel root
+            put(blockHeader.merkleroot?.toHex())             // 32 bytes - merkel root
             putInt(blockHeader.timestamp)                    // 4 bytes - start time of mining
-            put(blockHeader.target.toHex())                  // 4 bytes - target bits
-            putInt(blockHeader.nonce)                  // 4 bytes - nonce
+            putInt(blockHeader.target)                       // 4 bytes - target bits
+            putInt(blockHeader.nonce.toInt())          // 4 bytes - nonce
         }
 
         Timber.d("Block hex - ${headerLittleEndian.array().toHexString()}") // for debugging

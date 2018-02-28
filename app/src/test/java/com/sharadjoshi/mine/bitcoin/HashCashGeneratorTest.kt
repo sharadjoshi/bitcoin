@@ -13,94 +13,117 @@ import java.security.MessageDigest
 class HashCashGeneratorTest {
     private val hashCashGenerator = HashCashGenerator(MessageDigest.getInstance("SHA-256"))
 
+    // Use bits value - 402690497
+
     @Test
     fun testHashCash_returnsCorrectResult_ifAllParametersAreValid() {
         val validBlockHeader = BlockHeader(536870912,
-                "00000000000000000061abcd4f51d81ddba5498cff67fed44b287de0990b7266",
-                "871148c57dad60c0cde483233b099daa3e6492a91c13b337a5413a4c4f842978",
-                1515252561,
-                "180091c1",
-                45291998)
+                "Slush", // not needed in calculations
+                511334,  // not needed in calculations
+                "0000000000000000000ce49f9d47fd77557f6374664905d05e60f5e441a9cfcf",
+                "1803516ef185ef8ffb6362debc1eedb2c69330d316ea2b9198431d141951cf15",
+                "0000000000000000004a8f8aa018900a10da2b66c73c05bdcd5aa1fb08094ea2", // not needed in calculations
+                1519828331,
+                392009692,
+                2809285749)
 
         val byteArray = hashCashGenerator.generateHash(validBlockHeader)
-        assertThat(byteArray.toHexString()).isEqualToIgnoringCase("a9e41527e7613422b75f8d58af24c425fb6365dc2bcf20000000000000000000")
+        assertThat(byteArray.toHexString()).isEqualToIgnoringCase("a24e0908fba15acdbd053cc7662bda100a9018a08a8f4a000000000000000000")
     }
 
     @Test
     fun testHashCash_returnsIncorrectResult_ifVersionIsInvalid() {
         val invalidBlockHeader = BlockHeader(222222222, // Invalid
-                "00000000000000000061abcd4f51d81ddba5498cff67fed44b287de0990b7266",
-                "871148c57dad60c0cde483233b099daa3e6492a91c13b337a5413a4c4f842978",
-                1515252561,
-                "180091c1",
-                45291998)
+                "Slush", // not needed in calculations
+                511334,  // not needed in calculations
+                "0000000000000000000ce49f9d47fd77557f6374664905d05e60f5e441a9cfcf",
+                "1803516ef185ef8ffb6362debc1eedb2c69330d316ea2b9198431d141951cf15",
+                "0000000000000000004a8f8aa018900a10da2b66c73c05bdcd5aa1fb08094ea2", // not needed in calculations
+                1519828331,
+                392009692,
+                2809285749)
 
         val byteArray = hashCashGenerator.generateHash(invalidBlockHeader)
-        assertThat(byteArray.toHexString()).isNotEqualToIgnoringCase("a9e41527e7613422b75f8d58af24c425fb6365dc2bcf20000000000000000000")
+        assertThat(byteArray.toHexString()).isNotEqualToIgnoringCase("a24e0908fba15acdbd053cc7662bda100a9018a08a8f4a000000000000000000")
     }
 
     @Test
     fun testHashCash_returnsIncorrectResult_ifPrevHashIsInvalid() {
         val invalidBlockHeader = BlockHeader(536870912,
-        "00000000000000000061abcd4f51d81ddba5498cff67fed44b287de099123456",  // Invalid, 123456 at the end
-        "871148c57dad60c0cde483233b099daa3e6492a91c13b337a5413a4c4f842978",
-        1515252561,
-        "180091c1",
-        45291998)
+                "Slush", // not needed in calculations
+                511334,  // not needed in calculations
+                "0000000000000000000ce49f9d47fd77557f6374664905d05e60f5e441123456", // 123456 in the end
+                "1803516ef185ef8ffb6362debc1eedb2c69330d316ea2b9198431d141951cf15",
+                "0000000000000000004a8f8aa018900a10da2b66c73c05bdcd5aa1fb08094ea2", // not needed in calculations
+                1519828331,
+                392009692,
+                2809285749)
 
         val byteArray = hashCashGenerator.generateHash(invalidBlockHeader)
-        assertThat(byteArray.toHexString()).isNotEqualToIgnoringCase("a9e41527e7613422b75f8d58af24c425fb6365dc2bcf20000000000000000000")
+        assertThat(byteArray.toHexString()).isNotEqualToIgnoringCase("a24e0908fba15acdbd053cc7662bda100a9018a08a8f4a000000000000000000")
     }
 
     @Test
     fun testHashCash_returnsIncorrectResult_ifMerkelRootIsInvalid() {
         val invalidBlockHeader = BlockHeader(536870912,
-                "00000000000000000061abcd4f51d81ddba5498cff67fed44b287de0990b7266",
-                "871148c57dad60c0cde483233b099daa3e6492a91c13b337a5413a4c4f123456",  // Invalid, 123456 at the end
-                1515252561,
-                "180091c1",
-                45291998)
+                "Slush", // not needed in calculations
+                511334,  // not needed in calculations
+                "0000000000000000000ce49f9d47fd77557f6374664905d05e60f5e441a9cfcf",
+                "1803516ef185ef8ffb6362debc1eedb2c69330d316ea2b9198431d1419123456", // 123456 in the end
+                "0000000000000000004a8f8aa018900a10da2b66c73c05bdcd5aa1fb08094ea2", // not needed in calculations
+                1519828331,
+                392009692,
+                2809285749)
 
         val byteArray = hashCashGenerator.generateHash(invalidBlockHeader)
-        assertThat(byteArray.toHexString()).isNotEqualToIgnoringCase("a9e41527e7613422b75f8d58af24c425fb6365dc2bcf20000000000000000000")
+        assertThat(byteArray.toHexString()).isNotEqualToIgnoringCase("a24e0908fba15acdbd053cc7662bda100a9018a08a8f4a000000000000000000")
     }
 
     @Test
     fun testHashCash_returnsIncorrectResult_ifTimestampIsInvalid() {
         val invalidBlockHeader = BlockHeader(536870912,
-                "00000000000000000061abcd4f51d81ddba5498cff67fed44b287de0990b7266",
-                "871148c57dad60c0cde483233b099daa3e6492a91c13b337a5413a4c4f842978",
-                1234567891,   // Invalid, 123456 at the end
-                "180091c1",
-                45291998)
+                "Slush", // not needed in calculations
+                511334,  // not needed in calculations
+                "0000000000000000000ce49f9d47fd77557f6374664905d05e60f5e441a9cfcf",
+                "1803516ef185ef8ffb6362debc1eedb2c69330d316ea2b9198431d141951cf15",
+                "0000000000000000004a8f8aa018900a10da2b66c73c05bdcd5aa1fb08094ea2", // not needed in calculations
+                123456789, // 123456
+                392009692,
+                2809285749)
 
         val byteArray = hashCashGenerator.generateHash(invalidBlockHeader)
-        assertThat(byteArray.toHexString()).isNotEqualToIgnoringCase("a9e41527e7613422b75f8d58af24c425fb6365dc2bcf20000000000000000000")
+        assertThat(byteArray.toHexString()).isNotEqualToIgnoringCase("a24e0908fba15acdbd053cc7662bda100a9018a08a8f4a000000000000000000")
     }
 
     @Test
     fun testHashCash_returnsIncorrectResult_ifTargetIsInvalid() {
         val invalidBlockHeader = BlockHeader(536870912,
-                "00000000000000000061abcd4f51d81ddba5498cff67fed44b287de0990b7266",
-                "871148c57dad60c0cde483233b099daa3e6492a91c13b337a5413a4c4f842978",
-                1515252561,
-                "18009123",   // Invalid, 123 at the end
-                45291998)
+                "Slush", // not needed in calculations
+                511334,  // not needed in calculations
+                "0000000000000000000ce49f9d47fd77557f6374664905d05e60f5e441a9cfcf",
+                "1803516ef185ef8ffb6362debc1eedb2c69330d316ea2b9198431d141951cf15",
+                "0000000000000000004a8f8aa018900a10da2b66c73c05bdcd5aa1fb08094ea2", // not needed in calculations
+                1519828331,
+                392123456, // 123456 in the end
+                2809285749)
 
         val byteArray = hashCashGenerator.generateHash(invalidBlockHeader)
-        assertThat(byteArray.toHexString()).isNotEqualToIgnoringCase("a9e41527e7613422b75f8d58af24c425fb6365dc2bcf20000000000000000000")
+        assertThat(byteArray.toHexString()).isNotEqualToIgnoringCase("a24e0908fba15acdbd053cc7662bda100a9018a08a8f4a000000000000000000")
     }
 
     @Test
     fun testHashCash_returnsIncorrectResult_ifNonceIsInvalid() {
         val invalidBlockHeader = BlockHeader(536870912,
-                "00000000000000000061abcd4f51d81ddba5498cff67fed44b287de0990b7266",
-                "871148c57dad60c0cde483233b099daa3e6492a91c13b337a5413a4c4f842978",
-                1515252561,
-                "180091c1",
-                12345678)   // Invalid, 123456 at the end
+                "Slush", // not needed in calculations
+                511334,  // not needed in calculations
+                "0000000000000000000ce49f9d47fd77557f6374664905d05e60f5e441a9cfcf",
+                "1803516ef185ef8ffb6362debc1eedb2c69330d316ea2b9198431d141951cf15",
+                "0000000000000000004a8f8aa018900a10da2b66c73c05bdcd5aa1fb08094ea2", // not needed in calculations
+                1519828331,
+                392009692,
+                2809123456) // 123456 in the end
 
         val byteArray = hashCashGenerator.generateHash(invalidBlockHeader)
-        assertThat(byteArray.toHexString()).isNotEqualToIgnoringCase("a9e41527e7613422b75f8d58af24c425fb6365dc2bcf20000000000000000000")
+        assertThat(byteArray.toHexString()).isNotEqualToIgnoringCase("a24e0908fba15acdbd053cc7662bda100a9018a08a8f4a000000000000000000")
     }
 }
