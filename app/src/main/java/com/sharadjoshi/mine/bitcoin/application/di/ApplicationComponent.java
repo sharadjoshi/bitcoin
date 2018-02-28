@@ -3,8 +3,6 @@ package com.sharadjoshi.mine.bitcoin.application.di;
 import android.app.Application;
 
 import com.sharadjoshi.mine.bitcoin.application.BitcoinApplication;
-import com.sharadjoshi.mine.bitcoin.network.di.BlockServiceAPIModule;
-import com.sharadjoshi.mine.bitcoin.viewmodel.di.BlockHeaderViewModelModule;
 
 import javax.inject.Singleton;
 

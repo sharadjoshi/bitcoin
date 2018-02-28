@@ -35,7 +35,7 @@ class BlockHeaderView : ConstraintLayout {
             block_timestamp_value.text = timestamp.toString()
             block_prevhash_value.text = prevBlockhash
             block_merkel_root_value.text = merkleRoot
-            block_difficulty_value.text = nBits.toString()
+            block_difficulty_value.text = target
             block_nonce_value.text = nonce.toString()
         }
     }

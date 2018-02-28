@@ -7,7 +7,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.sharadjoshi.mine.bitcoin.R
 import com.sharadjoshi.mine.bitcoin.data.BlockHeader
-import com.sharadjoshi.mine.bitcoin.viewmodel.BlockHeaderViewModel
+import com.sharadjoshi.mine.bitcoin.main.viewmodel.BlockHeaderViewModel
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
@@ -29,9 +29,11 @@ class MineActivity : AppCompatActivity() {
             processBlock.isEnabled = true
         }
 
-        blockHeaderViewModel.blockHeader.observe(this, Observer { header -> block_details.setup(header ?: BlockHeader())})
-        blockHeaderViewModel.nonce.observe(this, Observer {
-            nonce -> progress.text = resources.getString(R.string.processing_with_nonce, nonce) })
+        blockHeaderViewModel.blockHeader().observe(this, Observer { header -> block_details.setup(header ?: BlockHeader())})
+        blockHeaderViewModel.nonce().observe(this, Observer {
+            nonce -> progress.text = getString(R.string.processing_with_nonce, nonce) })
+        blockHeaderViewModel.result().observe(this, Observer {
+            result ->  progress.text = getString(R.string.final_hash, result)})
 
         processBlock.setOnClickListener {
             // Toggle processing

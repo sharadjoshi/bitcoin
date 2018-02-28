@@ -12,4 +12,5 @@
     <string name="nonce">Nonce</string>
     <string name="current_block_header">Current Block Header</string>
     <string name="stop_processing">Stop Processing</string>
+    <string name="final_hash">Final Hash - %1$s</string>
 </resources>

@@ -1,10 +1,10 @@
-package com.sharadjoshi.mine.bitcoin.viewmodel.di
+package com.sharadjoshi.mine.bitcoin.main.di
 
 import android.arch.lifecycle.ViewModel
 import com.sharadjoshi.mine.bitcoin.application.di.ViewModelKey
 import com.sharadjoshi.mine.bitcoin.blockprocessor.di.HashCashGeneratorModule
 import com.sharadjoshi.mine.bitcoin.network.di.BlockServiceAPIModule
-import com.sharadjoshi.mine.bitcoin.viewmodel.BlockHeaderViewModel
+import com.sharadjoshi.mine.bitcoin.main.viewmodel.BlockHeaderViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
