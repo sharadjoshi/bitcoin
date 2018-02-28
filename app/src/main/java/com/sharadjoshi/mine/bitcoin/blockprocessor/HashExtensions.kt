@@ -1,4 +1,4 @@
-package com.sharadjoshi.mine.bitcoin.data
+package com.sharadjoshi.mine.bitcoin.blockprocessor
 
 import java.util.concurrent.ThreadLocalRandom
 

@@ -8,7 +8,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.sharadjoshi.mine.bitcoin.R
 import com.sharadjoshi.mine.bitcoin.data.BlockHeader
-import com.sharadjoshi.mine.bitcoin.data.toLittleEndian
+import com.sharadjoshi.mine.bitcoin.blockprocessor.toLittleEndian
 import com.sharadjoshi.mine.bitcoin.main.viewmodel.BlockHeaderViewModel
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_main.*
@@ -74,7 +74,7 @@ class MineActivity : AppCompatActivity() {
         }
 
         submitBlock.setOnClickListener {
-            getBlock.isEnabled = true
+            blockHeaderViewModel.sendResult(blockHash)
         }
     }
 

@@ -1,13 +1,12 @@
 package com.sharadjoshi.mine.bitcoin.blockprocessor
 
 import com.sharadjoshi.mine.bitcoin.data.BlockHeader
-import com.sharadjoshi.mine.bitcoin.data.toHexString
-import com.sharadjoshi.mine.bitcoin.data.toHex
 import timber.log.Timber
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
 import java.security.MessageDigest
 import javax.inject.Inject
+import javax.inject.Named
 
 class HashCashGenerator @Inject constructor(private val messageDigest: MessageDigest) {
 

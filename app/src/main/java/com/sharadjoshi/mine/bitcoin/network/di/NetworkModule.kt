@@ -28,7 +28,7 @@ class NetworkModule {
     }
 
     @Provides
-    fun provideLogginInterceptor(): HttpLoggingInterceptor {
+    fun provideLoggingInterceptor(): HttpLoggingInterceptor {
         return HttpLoggingInterceptor(HttpLoggingInterceptor.Logger { message -> Timber.i(message) })
     }
 }

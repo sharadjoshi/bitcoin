@@ -17,6 +17,12 @@ class BlockService(var blockServiceAPI: BlockServiceAPI) : Callback<Job> {
         j.enqueue(this)
     }
 
+    fun postResult(blockHandler : BlockHandler, hash : String) {
+        this.blockHandler = blockHandler
+        val j = blockServiceAPI.postResult(hash)
+        j.enqueue(this)
+    }
+
     override fun onResponse(call: Call<Job>?, response: Response<Job>?) {
         val j: Job? = response?.body()
         Timber.v("Received ${j.toString()}")

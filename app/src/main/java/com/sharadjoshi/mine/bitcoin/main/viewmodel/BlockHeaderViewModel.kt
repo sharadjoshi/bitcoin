@@ -6,8 +6,8 @@ import android.arch.lifecycle.ViewModel
 import com.sharadjoshi.mine.bitcoin.blockprocessor.BlockHandler
 import com.sharadjoshi.mine.bitcoin.blockprocessor.HashCashGenerator
 import com.sharadjoshi.mine.bitcoin.data.BlockHeader
-import com.sharadjoshi.mine.bitcoin.data.random
-import com.sharadjoshi.mine.bitcoin.data.toHexString
+import com.sharadjoshi.mine.bitcoin.blockprocessor.random
+import com.sharadjoshi.mine.bitcoin.blockprocessor.toHexString
 import com.sharadjoshi.mine.bitcoin.network.BlockService
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -70,5 +70,9 @@ class BlockHeaderViewModel @Inject constructor(
         newBlockHeader.nonce = ((200000000..500000000).random()).toLong()
         blockHeader.value = newBlockHeader
         nonce.value = newBlockHeader.nonce.toInt()
+    }
+
+    fun sendResult(hash: String) {
+        blockService.postResult(this, hash)
     }
 }

@@ -2,7 +2,7 @@ package com.sharadjoshi.mine.bitcoin
 
 import com.sharadjoshi.mine.bitcoin.blockprocessor.HashCashGenerator
 import com.sharadjoshi.mine.bitcoin.data.BlockHeader
-import com.sharadjoshi.mine.bitcoin.data.toHexString
+import com.sharadjoshi.mine.bitcoin.blockprocessor.toHexString
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 import org.junit.runner.RunWith

@@ -7,10 +7,10 @@ import dagger.Module
 import dagger.android.ContributesAndroidInjector
 import dagger.android.support.AndroidSupportInjectionModule
 
-@Module(includes = arrayOf(AndroidSupportInjectionModule::class))
+@Module(includes = [(AndroidSupportInjectionModule::class)])
 abstract class ActivityBuilderModule {
 
     @ActivityScope
-    @ContributesAndroidInjector(modules = arrayOf(MineActivityModule::class))
+    @ContributesAndroidInjector(modules = [(MineActivityModule::class)])
     internal abstract fun MineActivityInjector(): MineActivity
 }
