@@ -17,8 +17,6 @@ In the current scope, this app verifies blocks from the Bitcoin blockchain. It c
 ## Solution
 When the app requests a block, the server connects to a [bitcoin pool](http://bitaps.com) to pull a random block from the blockchain. The app can then verify the block for correctness, test other nonces by modifying the nonce value and submit the verified block back to the server. The server does not process or forward the submitted block.
 
-There is no authentication between the app and the server as only the verified blocks in the blockchain are accessed.
-
 The app interface is as follows:
 
 ![alt text](screenshots/bitcoin-app.png)
@@ -38,7 +36,7 @@ The app interface is as follows:
 * RxJava2 for observing events
 * Constraint Layout for views
 * ViewModel and LiveData for MVVM pattern
-** I chose ViewModel so that I have a ready access to lifecycle safe/aware component that can easily connect and process in the background.
+  * I chose ViewModel so that I have a ready access to lifecycle safe/aware component that can easily connect and process in the background.
 * Jackson for json parsing
 * Retrofit2 for making HTTP binding
 * OkHttp3 for connecting with the server
@@ -49,4 +47,8 @@ The app interface is as follows:
 * Hosted on AWS
 * Javascript / Node JS for operation
 * Bitaps APIs to access the Bitcoin blockchain
+
+## TODOs
+* There is no authentication between the app and the server yet as only the verified blocks in the blockchain are accessed
+* Some modules are in Java as the I had some problems injecting them when they were coded in Kotlin. The same code works when in Java! Didn't dig deep into the issue with Dagger.
 
