@@ -6,13 +6,13 @@
     <string name="processing_with_nonce">Processing with nonce : %1$d</string>
     <string name="version">Version</string>
     <string name="timestamp">Timestamp</string>
-    <string name="previous_hash">Previous Hash</string>
+    <string name="previous_hash">Prev Hash</string>
     <string name="merkel_root">Merkel Root</string>
     <string name="nbits">Bits</string>
     <string name="nonce">Nonce</string>
     <string name="current_block_header">Block Header</string>
     <string name="stop_processing">Stop</string>
-    <string name="final_hash">Final Hash - %1$s</string>
+    <string name="final_hash">Result Hash - %1$s</string>
     <string name="block_id">Block Id</string>
     <string name="mined_by">Mined by</string>
     <string name="hash">Hash</string>

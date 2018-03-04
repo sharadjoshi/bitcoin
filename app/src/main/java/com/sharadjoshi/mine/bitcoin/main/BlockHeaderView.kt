@@ -7,6 +7,11 @@ import android.view.View
 import com.sharadjoshi.mine.bitcoin.R
 import com.sharadjoshi.mine.bitcoin.data.BlockHeader
 import kotlinx.android.synthetic.main.block_header_view.view.*
+import timber.log.Timber
+import java.text.DateFormat
+import java.text.DateFormat.MEDIUM
+import java.text.SimpleDateFormat
+import java.util.*
 
 class BlockHeaderView : ConstraintLayout {
     private var container: View? = null
@@ -35,7 +40,7 @@ class BlockHeaderView : ConstraintLayout {
             block_miner_value.text = miner
             block_hash_value.text = blockHash
             block_version_value.text = version.toString()
-            block_timestamp_value.text = timestamp.toString()
+            block_timestamp_value.text = Date(timestamp.toLong() * 1000).toString()
             block_prevhash_value.text = prevBlockhash
             block_merkel_root_value.text = merkleroot
             block_difficulty_value.text = target.toString()

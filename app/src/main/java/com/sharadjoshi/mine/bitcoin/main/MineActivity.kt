@@ -6,6 +6,7 @@ import android.arch.lifecycle.ViewModelProviders
 import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.View.VISIBLE
 import com.sharadjoshi.mine.bitcoin.R
 import com.sharadjoshi.mine.bitcoin.data.BlockHeader
 import com.sharadjoshi.mine.bitcoin.blockprocessor.toLittleEndian
@@ -31,12 +32,12 @@ class MineActivity : AppCompatActivity() {
         with(blockHeaderViewModel) {
             blockHeader().observe(this@MineActivity, Observer { header ->
                 block_details.setup(header ?: BlockHeader())
+                block_fetch_progress_bar.hide()
                 blockHash = header?.blockHash ?: ""
-                verify_result_final.text = ""
-            })
 
-            nonce().observe(this@MineActivity, Observer { nonce ->
-                result_hash.text = getString(R.string.processing_with_nonce, nonce)
+                getBlock.isEnabled = true
+                verify_result_final.text = ""
+                result_hash.text = ""
             })
 
             result().observe(this@MineActivity, Observer { result ->
@@ -55,7 +56,9 @@ class MineActivity : AppCompatActivity() {
             })
 
             getBlock.setOnClickListener {
+                getBlock.isEnabled = false
                 getBlock()
+                block_fetch_progress_bar.show()
                 processBlock.isEnabled = true
             }
 
