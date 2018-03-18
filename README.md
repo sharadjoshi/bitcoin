@@ -29,26 +29,3 @@ The app interface is as follows:
 
 **SUBMIT** will make a POST request to the server with the computed hash. The server does not process this request.
 
-## Tech Stack
-### App
-* The Android app is coded in Kotlin
-* Dagger 2.x for dependency injection
-* RxJava2 for observing events
-* Constraint Layout for views
-* ViewModel and LiveData for MVVM pattern
-  * I chose ViewModel so that I have a ready access to lifecycle safe/aware component that can easily connect and process in the background.
-* Jackson for json parsing
-* Retrofit2 for making HTTP binding
-* OkHttp3 for connecting with the server
-* Timber for Logging
-* JUnit for testing
-
-### Server
-* Hosted on AWS
-* Javascript / Node JS for operation
-* Bitaps APIs to access the Bitcoin blockchain
-
-## TODOs
-* There is no authentication between the app and the server yet as only the verified blocks in the blockchain are accessed
-* Some modules are in Java as the I had some problems injecting them when they were coded in Kotlin. The same code works when in Java! Didn't dig deep into the issue with Dagger.
-
